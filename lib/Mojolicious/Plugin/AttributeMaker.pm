@@ -17,7 +17,7 @@ Version 0.01
 
 =cut
 
-our $VERSION = 0.01;
+our $VERSION = 0.02;
 
 =head1 SYNOPSIS
 
@@ -68,7 +68,7 @@ But if you create extension,you can write upper code without 'BEGIN' section;
 
 Provides attributes like a Local,Path,Global
 
-L<http://Mojolicious::Plugin::AttributeMaker::Extension::Routing>
+L<Mojolicious::Plugin::AttributeMaker::Extension::Routing>
 
 =back
     
