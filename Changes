@@ -1,0 +1,6 @@
+Revision history for Mojolicious-Plugin-AttributeMaker
+
+0.01    2014-08-27
+       	- First release without test. Sorry ;)
+       	- Add simple routing extension
+
