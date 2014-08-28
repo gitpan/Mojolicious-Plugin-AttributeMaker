@@ -16,7 +16,8 @@ WriteMakefile(
     },
     BUILD_REQUIRES => {
         'Test::More' => 0,
-        'Mojolicious' => 3
+        'Mojolicious' => 3,
+        'Module::Find' => 0
     },
     PREREQ_PM => {
     

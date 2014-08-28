@@ -3,6 +3,7 @@ abstract: 'Make attributes for Mojolicious? - easily!'
 author:
   - '"Evgeniy Vansevich" <"hammer@cpan.org">'
 build_requires:
+  Module::Find: '0'
   Mojolicious: '3'
   Test::More: '0'
 configure_requires:
@@ -20,4 +21,4 @@ no_index:
     - inc
 requires:
   perl: '5.006'
-version: '0.02'
+version: '0.03'

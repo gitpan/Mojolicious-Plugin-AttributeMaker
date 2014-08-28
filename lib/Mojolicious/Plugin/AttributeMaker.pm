@@ -13,11 +13,11 @@ Mojolicious::Plugin::AttributeMaker - Make attributes for Mojolicious? - easily!
 
 =head1 VERSION
 
-Version 0.01
+Version 0.03
 
 =cut
 
-our $VERSION = 0.02;
+our $VERSION = 0.03;
 
 =head1 SYNOPSIS
 
@@ -86,7 +86,7 @@ sub MODIFY_CODE_ATTRIBUTES {
     foreach my $attr (@attrs) {
         my $attrdata;
         my $cleanattr = $attr;
-        if ( $cleanattr =~ m/(\w+)\((\N+|)\)$/ ) {    # Attr with params Local(blablabla)
+        if ( $cleanattr =~ m/(\w+)\((\N*)\)$/ ) {    # Attr with params Local(blablabla)
             $cleanattr = $1;
             foreach ( split ',', $2 ) {               # Parsing and deleting escape characters in params
                 $cleaner->($_);
