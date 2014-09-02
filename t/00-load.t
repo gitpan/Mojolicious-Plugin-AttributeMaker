@@ -3,6 +3,9 @@ use 5.006;
 use strict;
 use warnings FATAL => 'all';
 use Test::More;
+use FindBin qw/$Bin/;
+use lib "$FindBin::Bin/lib";
+use lib "$FindBin::Bin/../lib";
 
 plan tests => 1;
 
