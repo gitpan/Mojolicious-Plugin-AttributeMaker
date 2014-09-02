@@ -8,7 +8,7 @@ WriteMakefile(
     AUTHOR           => q{"Evgeniy Vansevich" <"hammer@cpan.org">},
     VERSION_FROM     => 'lib/Mojolicious/Plugin/AttributeMaker.pm',
     ABSTRACT_FROM    => 'lib/Mojolicious/Plugin/AttributeMaker.pm',
-    LICENSE          => 'Artistic_2_0',
+    LICENSE          => 'artistic_2',
     PL_FILES         => {},
     MIN_PERL_VERSION => 5.006,
     CONFIGURE_REQUIRES => {

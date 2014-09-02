@@ -2,6 +2,7 @@ package Mojolicious::Plugin::AttributeMaker::Extension::Routing;
 use parent 'Mojolicious::Plugin::AttributeMaker::Extension';
 
 our $VERSION = 0.01;
+
 =head1 NAME
 
 Mojolicious::Plugin::AttributeMaker::Extension::Routing - Catalyst like routing in you Mojolicious app!
@@ -114,6 +115,8 @@ sub _add_route() {
     my $plugin = shift;
 
     #[ 'Controller', 'Action', 'Url', 'Type' ]
+    $_[2] = "/" . $_[2]; # append slash first...may be hack,may be no 
+    $_[2] =~ s/\/+/\//g;
     $plugin->config()->{urls}->{ lc $_[2] } = { attr => $_[3], url => lc $_[2] };
     $plugin->config->{app}->routes->route( lc $_[2] )->to( controller => $_[0], action => $_[1] );
 

@@ -17,7 +17,7 @@ Version 0.03
 
 =cut
 
-our $VERSION = 0.03;
+our $VERSION = 0.03_001;
 
 =head1 SYNOPSIS
 
@@ -86,15 +86,16 @@ sub MODIFY_CODE_ATTRIBUTES {
     foreach my $attr (@attrs) {
         my $attrdata;
         my $cleanattr = $attr;
-        if ( $cleanattr =~ m/(\w+)\((\N*)\)$/ ) {    # Attr with params Local(blablabla)
+        if ( $cleanattr =~ m/(\w+)\((\X*)\)$/ ) {    # Attr with params Local(blablabla)
             $cleanattr = $1;
             foreach ( split ',', $2 ) {               # Parsing and deleting escape characters in params
                 $cleaner->($_);
                 push @$attrdata, $_;
             }
         }
+        
         if ( exists $config->{attrs}->{$cleanattr} ) {
-            print "Attribute ${cleanattr} called!\n";
+            print "Attribute ${cleanattr} called!\n";            
             $config->{attrs}->{$cleanattr}
               ->( $package, svref_2object($cv)->GV->NAME, $config->{self}, $config->{app}, $cleanattr, $attrdata );
         }
@@ -155,8 +156,9 @@ sub register {
         ? 'main'
         : 'Mojolicious::Controller',
         controllers => delete $conf->{controllers}
-          || _is_loaded('Mojolicious::Lite') ? '' : die( __PACKAGE__ . " please set controller class" ),
+          || (_is_loaded('Mojolicious::Lite') ? '' : die( __PACKAGE__ . " please set controller class" )),
         self  => $self,
+        namespace => '',
         app   => $app,
         attrs => {},
         %{$conf}
