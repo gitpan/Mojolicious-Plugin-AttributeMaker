@@ -13,11 +13,11 @@ Mojolicious::Plugin::AttributeMaker - Make attributes for Mojolicious? - easily!
 
 =head1 VERSION
 
-Version 0.03
+Version 0.03_002
 
 =cut
 
-our $VERSION = 0.03_001;
+our $VERSION = 0.03_002;
 
 =head1 SYNOPSIS
 
