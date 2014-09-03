@@ -3,7 +3,8 @@
 package TestApp {
     use Mojo::Base 'Mojolicious';
     use FindBin;
-
+    use lib "$FindBin::Bin/../lib";
+    use lib "$FindBin::Bin/lib";
     # This method will run once at server start
     sub startup {
         my $self = shift;
@@ -23,6 +24,7 @@ BEGIN {
     use Mojo::Base -strict;
     use Test::More;
     use Test::Mojo;
+    use FindBin;
     use lib "$FindBin::Bin/../lib";
     $t = Test::Mojo->new('TestApp');
 }

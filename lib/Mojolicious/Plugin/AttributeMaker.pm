@@ -17,13 +17,13 @@ Version 0.03_002
 
 =cut
 
-our $VERSION = 0.04_004;
+our $VERSION = 0.04_005;
 
 =head1 SYNOPSIS
 
-=head2 Step 1 - Connect plugin to your app
+=head2 Step 1. Include plugin in your app.
 
-=head3 NOTE: Don`t use with lite-app!!!
+=head3 NOTE: Do NOT use this plugin alongside with lite-app!
  
     package TestApp;
 
@@ -36,10 +36,17 @@ our $VERSION = 0.04_004;
             controllers => 'TestApp::Controller'
         });
     }
-    
-=head2 Step 2 - Add your own custom attribute or use attribute from extensions
+
+=head2 Step 2. Configure the plugin.
+
+    {
+        # controllers => " Specify the controller class. "
+        controllers => 'TestApp::Controller'
+    }
+
+=head2 Step 3 - Add your attribute or use pre-created ones from extensions.
  
-=head3 Step 2.1 - Create custom attribute in your controller
+=head3 Step 3.1 - Create custom attribute in your controller
     
     BEGIN{
         __PACKAGE__->make_attribute(
@@ -55,18 +62,15 @@ our $VERSION = 0.04_004;
         );
     }
     
-But if you create extension,you can write upper code without 'BEGIN' section;   
-    
-    sub my_custom_action :Local('param1','param2',...,paramN){ ... }
-    
+If you create extension,you can write the above code without 'BEGIN' section;   
 
-=head3 Step 2.2 - Using attribute from extensions
+=head3 Step 2.2 - Or use attributes from extensions.
 
 =over 3
 
 =item * Catalyst-like routing
 
-Provides attributes like a Local,Path,Global
+Allows to use attributes like Local, Path, Global.
 
 L<Mojolicious::Plugin::AttributeMaker::Extension::Routing>
 
@@ -88,19 +92,19 @@ sub MODIFY_CODE_ATTRIBUTES {
         my $cleanattr = $attr;
         if ( $cleanattr =~ m/(\w+)\((\X*)\)$/ ) {    # Attr with params Local(blablabla)
             $cleanattr = $1;
-            foreach ( split ',', $2 ) {               # Parsing and deleting escape characters in params
-                $cleaner->($_);
-                push @$attrdata, $_;
+            foreach ( split ',', $2 ) {              # Parsing
+                $cleaner->($_);                      # and deleting escape characters in params
+                push @$attrdata, $_ if length($_);
             }
         }
-        
+
         if ( exists $config->{attrs}->{$cleanattr} ) {
-            print "Attribute ${cleanattr} called!\n";            
+            $config->{app}->log->debug("Attribute ${cleanattr} called!");
             $config->{attrs}->{$cleanattr}
               ->( $package, svref_2object($cv)->GV->NAME, $config->{self}, $config->{app}, $cleanattr, $attrdata );
         }
         else {
-            print "Attribute ${cleanattr} not found!\n";
+            $config->{app}->log->error("Attribute ${cleanattr} not found!\n");
         }
     }
     ();
@@ -156,11 +160,11 @@ sub register {
         ? 'main'
         : 'Mojolicious::Controller',
         controllers => delete $conf->{controllers}
-          || (_is_loaded('Mojolicious::Lite') ? '' : die( __PACKAGE__ . " please set controller class" )),
-        self  => $self,
+          || ( _is_loaded('Mojolicious::Lite') ? '' : die( __PACKAGE__ . " please set controller class" ) ),
+        self      => $self,
         namespace => '',
-        app   => $app,
-        attrs => {},
+        app       => $app,
+        attrs     => {},
         %{$conf}
     };
     config($config);
