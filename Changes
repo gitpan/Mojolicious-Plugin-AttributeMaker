@@ -1,6 +1,9 @@
 Revision history for Mojolicious-Plugin-AttributeMaker
 
-0.04_001    2014-09-02
+04.04_004    2014-09-03
+        -  fix tests (maybe)
+
+0.03_001    2014-09-02
         - Add simple tests
         - Some fix for attribute parsing (maybe)
 
