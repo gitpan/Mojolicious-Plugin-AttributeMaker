@@ -24,4 +24,4 @@ requires:
   perl: '5.010001'
 resources:
   license: http://www.opensource.org/licenses/artistic-license-2.0
-version: '0.04005'
+version: '0.04'

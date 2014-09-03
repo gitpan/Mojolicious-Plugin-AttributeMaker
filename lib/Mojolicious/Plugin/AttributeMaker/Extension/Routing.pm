@@ -1,6 +1,7 @@
 package Mojolicious::Plugin::AttributeMaker::Extension::Routing;
 use parent 'Mojolicious::Plugin::AttributeMaker::Extension';
-
+use strict;
+use warnings;
 our $VERSION = 0.01;
 
 =head1 NAME
@@ -79,6 +80,7 @@ __PACKAGE__->make_attribute(
     Global => sub {
         my ( $package, $method, $plugin, $mojo_app, $attrname, $attrdata ) = @_;
         my $controller = _get_controller_name($package);
+        my $config     = $plugin->config();
         my $url        = $config->{namespace} . "";
         if ($attrdata) {
             $url .= $attrdata->[0];
@@ -92,9 +94,10 @@ __PACKAGE__->make_attribute(
 __PACKAGE__->make_attribute(
     Path => sub {
         my ( $package, $method, $plugin, $mojo_app, $attrname, $attrdata ) = @_;
+        my $config     = $plugin->config();
         my $controller = _get_controller_name($package);
         my $url        = $config->{namespace} . "";
-        my $config     = $plugin->config();
+
         if ($attrdata) {
             if ( 0 == index( $attrdata->[0], '/' ) ) {
                 $url .= $attrdata->[0];

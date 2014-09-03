@@ -1,4 +1,6 @@
 package Mojolicious::Plugin::AttributeMaker::Extension;
+use strict;
+use warnings;
 #Base class :)
 #Infected by Mojolicious::Plugin::Router;
 =head1 NAME
