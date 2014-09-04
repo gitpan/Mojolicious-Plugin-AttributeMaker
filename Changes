@@ -1,5 +1,8 @@
 Revision history for Mojolicious-Plugin-AttributeMaker
 
+0.06    2014-09-04
+        - fix syntax tests for old perl
+
 0.04    2014-09-04
         - use strict and warnings
         - fix undefined $config var
